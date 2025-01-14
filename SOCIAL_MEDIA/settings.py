@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-3nm*djstlhfw7ng&+=m*#b^q)cqgw@62()q%zp)+vebsdyy$y=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+# ALLOWED_HOSTS = ['djangoblog-3.onrender.com']
+ALLOWED_HOSTS = ['djangoblog-3.onrender.com', 'www.blogsPlatform.com']
 
 # after production
 # ALLOWED_HOSTS = ['yourapp.onrender.com', 'yourdomain.com']
