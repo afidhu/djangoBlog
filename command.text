@@ -1,0 +1,23 @@
+pip freeze > requirements.txt
+
+pip install -r requirements.txt
+
+python manage.py collectstatic
+
+
+INSTALLED_APPS = [
+    'django.contrib.staticfiles',  # This handles static files
+    # other apps
+]
+
+'django.contrib.staticfiles.middleware.StaticFilesMiddleware',
+
+
+STATIC_URL = '/static/'
+
+# During production, you will also need to configure:
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory where static files will be collected for deployment
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Additional directories where static files are located
+]

@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-3nm*djstlhfw7ng&+=m*#b^q)cqgw@62()q%zp)+vebsdyy$y=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+# after production
+# ALLOWED_HOSTS = ['yourapp.onrender.com', 'yourdomain.com']
+
 
 
 # Application definition
@@ -44,6 +48,10 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    
+    'django.contrib.staticfiles.middleware.StaticFilesMiddleware',
+
+    
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -122,6 +130,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS=[BASE_DIR/'static']
 MEDIA_ROOT=(BASE_DIR/'media')
 MEDIA_URL='/media/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
