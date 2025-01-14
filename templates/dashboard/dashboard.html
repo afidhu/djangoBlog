@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+  <div class="container">
+
+{% comment %} ////////////////////ADMIN////////////////////////////////////// {% endcomment %}
+      
+      {% if request.user.controller %}
+        <div class="table mt-4"   >
+         <div class="row">
+            <div class="card col-md-6 shadow m-auto">
+              <div class="col-md-12">
+              <table style="text-align: center; border: 1px solid;" class="m-auto"  >
+              <thead>
+                <tr >
+                  <th style="border: 1px solid;"  class="px-3">USERNAME</th>
+                  <th style="border: 1px solid;"  class="px-3">EMAIL</th>
+                  <th style="border: 1px solid;" class="px-3">STATUS</th>
+                  <th style="border: 1px solid;" class="px-3">APPROVE</th>
+                  <th style="border: 1px solid;" class="px-3">ACTION</th>
+                </tr>
+              </thead>
+              <td colspan="5" > <hr> </td>
+              <tbody  >
+                
+                {% for user in alluser %}
+                  <tr style="border: 1px solid;">
+                    <td style="border: 1px solid;" class="px-3">{{user.username}}</td>
+                    <td style="border: 1px solid;" class="px-3">{{user.email}}</td>
+                   
+                   {% if user.is_status %}
+                     <td style="border: 1px solid;" class="px-3 "><a href="{%url 'deactive' user.id%}" ><span class="btn btn-success" >Active</span></a></td>
+                     {% else %}
+                     <td style="border: 1px solid;" class="px-3"><a href="{%url 'active' user.id%}"  class="btn btn-danger" >Deactive</a></td>
+                   {% endif %}
+
+                   {% if user.approve %}
+                   <td style="border: 1px solid;" class="px-3 "><a href="{%url 'approved' user.id%}" ><span class="btn btn-primary" >Approved</span></a></td>
+                   {% else %}
+                   <td style="border: 1px solid;" class="px-3"><a href="{%url 'not_approved' user.id%}"  class="btn btn-warning" >Improved</a></td>
+                 {% endif %}
+
+                    <td style="border: 1px solid;" class="px-3">
+                      <a href="{%url 'user-delete' user.id%}"  onclick="return confirm('Do you want to delete user???!!! ')" >
+                        <span class="btn btn-danger" ><i class="fa fa-trash" ></i> </span>
+                      </a>
+                    </td>
+                  </tr>
+                {% endfor %}
+                  
+              </tbody>
+            </table>
+            </div>
+          </div>
+         </div>
+        </div>
+      {% else %}
+        
+      
+      {% if request.user.approve %}
+        
+        {% if request.user.is_status  %}
+          
+        
+          
+        
+    <div class="row mt-3" style="max-width: 540px; float: right;">
+        
+        {% for post in post %}
+        <div class="card mb-3 shadow "   >
+            <div class="row g-0">
+              <div class="col-md-4">
+               
+                
+                <img src="{{ post.author.Profile.image.url }}" onerror="this.onerror=null;this.src='{% static 'user.png' %}'" class="img-fluid rounded-start img-thumbnail" alt="profile">
+          
+                
+                
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <a href="{%url 'post-detail' post.id%}"   style="text-decoration: none;" ><h5 class="card-title">{{post.title}}</h5></a>
+                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+            
+        {% endfor %}
+            
+            
+    </div>
+
+
+          <div class="card mb-3 mt-3  shadow" style="width: 18rem;">
+            <div class="card-body">
+             <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form}}
+                <button type="submit" class="btn btn-success mt-2" >POst</button>
+             </form>
+            </div>
+          </div>
+
+
+          <div class="paginator mx-5"  style="float: right;" >
+            <ul class="pagination">
+              {% for i in paginator.page_range %}
+                  <li class="page-item {% if posts.number == i %}active{% endif %}">
+                      <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                  </li>
+              {% endfor %}
+          </ul>
+          </div>
+
+
+          {% else %}
+
+          <div class="row mt-5 ">
+            <div class="card col-md-6 m-auto">
+              <div class="col-md">
+                <center> 
+                  <h5 class="text-danger" >Your Account Temporary Inactive, <p class="text-dark" >Please Conctact with Us Via: 0620862101</p></h5>
+                </center>
+              </div>
+            </div>
+          </div>
+
+          {% endif %}
+          {% else %}
+
+          <div class="row mt-5 ">
+            <div class="card col-md-6 m-auto">
+              <div class="col-md">
+                <center> 
+                  <h5 class="text-success" >Congratulation for Create an Account, <p class="text-warning" >Please wait for Approval!!</p></h5>
+                </center>
+              </div>
+            </div>
+          </div>
+
+          {% endif %}
+          {% endif %}
+  </div>
+
+    
+{% endblock content %}
+    
