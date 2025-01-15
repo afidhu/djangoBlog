@@ -11,6 +11,7 @@
                         {% csrf_token %}
                         {{form.as_p}}
                         <button type="submit" class="btn btn-success" > <i class="fa fa-unlock" ></i>&nbsp; Login</button>
+                        <span>Not have account <span> <a href="{%url 'register'%}">Sign up</a> </span></span>
                     </form>
                 </div>
             </div>
